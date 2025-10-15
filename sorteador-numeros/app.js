@@ -7,28 +7,40 @@ function sortear() {
     let inicioNumero = parseInt(document.getElementById ('de').value);
     let finalNumero = parseInt(document.getElementById ('ate').value);
 
-    for (let i = 0; i < quantidadeNumeros; i++){
 
-        let numeroSorteado = sortearNumero(inicioNumero, finalNumero);
+    if (quantidadeNumeros <= (finalNumero - inicioNumero) + 1) {
 
-        while (listaNumeros.includes(numeroSorteado)){
-            numeroSorteado = sortearNumero(inicioNumero,finalNumero);
+        for (let i = 0; i < quantidadeNumeros; i++){
+
+            let numeroSorteado = sortearNumero(inicioNumero, finalNumero);
+
+            while (listaNumeros.includes(numeroSorteado)){
+                numeroSorteado = sortearNumero(inicioNumero,finalNumero);
+            }
+
+            listaNumeros.push(numeroSorteado);
+
         }
+        
+        exibirMensagem(`Números sorteados:  ${listaNumeros.join(', ')}`);
 
-        listaNumeros.push(numeroSorteado);
+        if (listaNumeros.length > 0 & travaBotao === false) {
 
+            alterarStatusBotao();
+            travaBotao = true;
+
+        } 
+
+    } else if (inicioNumero > finalNumero) {
+
+        exibirMensagem(`Erro: O número ${inicioNumero} é superior ao ${finalNumero}. Altere para um valor valido.`);
+
+    } else {
+
+        quantidadeMaxima = (finalNumero - inicioNumero) + 1;
+        exibirMensagem(`Erro: Quantidade de sorteio invalida. Máximo entre ${inicioNumero} e ${finalNumero} é ${quantidadeMaxima}.`);
+        
     }
-    
-    let mensagemResultado = document.getElementById('resultado');
-    mensagemResultado.innerHTML = `<label class="texto__paragrafo">Números sorteados:  ${listaNumeros.join(', ')}</label>`;
-
-    if (listaNumeros.length > 0 & travaBotao === false) {
-
-        alterarStatusBotao();
-        travaBotao = true;
-
-    } 
-
 }
 
 function sortearNumero(min, max) {
@@ -60,9 +72,14 @@ function reiniciar() {
         document.getElementById('quantidade').value = '';
         document.getElementById('de').value = '';
         document.getElementById('ate').value = '';
-        document.getElementById('resultado').innerHTML = '<label class="texto__paragrafo">Números sorteados:  nenhum até agora</label>';
+        exibirMensagem('Números sorteados:  nenhum até agora');
         alterarStatusBotao();
         travaBotao = false;
     }
 
+}
+
+function exibirMensagem(texto) {
+    let mensagemResultado = document.getElementById('resultado');
+    mensagemResultado.innerHTML = `<label class="texto__paragrafo">${texto}</label>`;
 }
