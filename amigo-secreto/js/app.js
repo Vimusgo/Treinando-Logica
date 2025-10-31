@@ -1,4 +1,4 @@
-let listaAmigos = ['Vinicius', 'Gaerica', 'Repolho', 'Morpheus'];
+let listaAmigos = [];
 let amigoSecretos = [];
 let checagemSorteio = false;
 
@@ -25,7 +25,8 @@ function adicionar() {
 
 function adicionarAmigo() {
 
-    let nome = document.getElementById('nome-amigo').value;
+    let coletaNome = document.getElementById('nome-amigo').value;
+    let nome = coletaNome.toUpperCase();
 
     if (nome === '') {
 
@@ -75,7 +76,7 @@ function sortear() {
 
     } else {
 
-        alert ('Sorteio já foi efetuado, clique em reiniciar para fazer um novo sorteio.');
+        alert ('Sorteio já foi efetuado, clique em reiniciar ou adicione mais um nome para fazer um novo sorteio.');    
 
     }
 
